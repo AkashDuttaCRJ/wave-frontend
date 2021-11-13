@@ -1,0 +1,21 @@
+.home {
+  padding-top: 10vh;
+  margin-right: 100px;
+  margin-left: 200px;
+}
+.greeting {
+  margin-left: 2rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+.greeting p {
+  font-weight: bold;
+  min-width: max-content;
+  z-index: 21;
+}
+@media only screen and (max-width: 600px) {
+  .home {
+    margin-left: 150px;
+  }
+}

@@ -1,0 +1,29 @@
+.charts-card {
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.charts-image {
+  height: 150px;
+  width: 200px;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+.charts-image img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.charts-card p {
+  text-align: center;
+}
+
+.border {
+  width: 150px;
+  border-radius: 50%;
+}

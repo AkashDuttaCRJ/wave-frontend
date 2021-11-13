@@ -1,18 +1,23 @@
 .top-section {
-    display: flex;
-    background-color: #0D0C0F;
-    position: relative;
-    overflow-x: clip;
+  display: flex;
+  background-color: #0d0c0f;
+  position: relative;
+  overflow-x: clip;
 }
 
 .left-section {
-    width: 50%;
-    height: 90vh;
-    border-left-width: 0px;
-    border-right-width: 1px;
-    border-style: solid;
-    border-image: linear-gradient(to bottom, #0D0C0F 0%, #818181 50%, #0D0C0F 100%);
-    border-image-slice: 1;
+  width: 50%;
+  height: 90vh;
+  border-left-width: 0px;
+  border-right-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(
+    to bottom,
+    #0d0c0f 0%,
+    #818181 50%,
+    #0d0c0f 100%
+  );
+  border-image-slice: 1;
 }
 
 /* .right-section {
