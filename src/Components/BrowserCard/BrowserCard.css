@@ -1,0 +1,55 @@
+.BrowserCards {
+  height: auto;
+  margin-top: 1rem;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.BrowserCards::-webkit-scrollbar {
+  display: none;
+}
+
+.BrowserCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 130px;
+
+  width: 130px;
+
+  overflow: hidden;
+  mask-image: paint(squircle);
+  -webkit-mask-image: paint(squircle);
+  background: paint(squircle);
+  --squircle-radius: 15px;
+  --squircle-smooth: 0.8;
+  --squircle-color: grey;
+}
+/* .BrowserCard:nth-child(1) {
+  margin-left: 1rem;
+} */
+.BrowserCard:nth-last-child(1) {
+  margin-right: 0rem;
+}
+.BrowserCard img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.BrowserTitle {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  max-width: 90%;
+  text-align: center;
+  font-weight: bold;
+}
+.BrowserSubtitle {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}

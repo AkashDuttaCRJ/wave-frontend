@@ -6,12 +6,12 @@
 .container {
   display: flex;
   flex-direction: column;
-  margin-top: 5rem;
-  min-height: 100vh;
+  margin-top: 1rem;
+  /* min-height: 20vh; */
   width: 100%;
+  margin-bottom: 2.5rem;
 }
-.container h1,
-h2 {
+.title {
   margin-left: 2rem;
 }
 
@@ -21,35 +21,47 @@ h2 {
   overflow-y: hidden;
   align-items: center;
   position: relative;
-  background-color: violet;
-  margin-top: 1rem;
+  /* background-color: violet; */
+  /* margin-top: 1rem; */
 }
 .cards::-webkit-scrollbar {
   display: none;
 }
 .card {
-  min-width: 150px;
-  height: 150px;
-  background-color: red;
+  --card-width: 150px;
+  --card-height: 200px;
+  min-width: var(--card-width);
+  height: var(--card-height);
+  border-radius: 10px;
   overflow: hidden;
-  border-radius: 20px;
+  mask-image: paint(squircle);
+  -webkit-mask-image: paint(squircle);
+  background: paint(squircle);
+  --squircle-radius: 15px;
+  --squircle-smooth: 0.8;
   margin: 1rem 0.5rem;
   position: relative;
 }
 .card::after {
   content: "";
   height: 60px;
-  width: 150px;
-  background-color: yellow;
+  width: var(--card-width);
+  background-color: rgba(178, 171, 171, 0.3);
+  backdrop-filter: blur(5px);
   position: absolute;
   bottom: 0;
   left: 0;
 }
+.card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
 .imgBox {
   position: absolute;
-  top: 3.5rem;
+  top: 6.6rem;
   right: 0.5rem;
-  z-index: 1;
+  z-index: 15;
   padding-left: 4px;
   --size: 40px;
   width: var(--size);
@@ -72,4 +84,22 @@ h2 {
 }
 .card:nth-last-child(1) {
   margin-right: 2rem;
+}
+
+.card-text {
+  color: rebeccapurple;
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0;
+  margin: 0 1rem;
+  z-index: 10;
+  font-size: 0.8rem;
+}
+.card-title {
+  font-weight: bold;
+  color: white;
+  font-size: 0.9rem;
+}
+.card-type {
+  color: rgba(255, 255, 255, 0.7);
 }

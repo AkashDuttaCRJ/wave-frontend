@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./Header.css";
 import hamburger from "../../Assets/menu.svg";
-import search from "../../Assets/search.svg";
-import search1 from "../../Assets/search1.svg";
-import cross from "../../Assets/cross1.svg";
 import { motion } from "framer-motion";
-import { FiSearch } from "react-icons/fi";
-import { ImCross } from "react-icons/im";
+import cross from "../../Assets/cross1.svg";
+
+import { BsSoundwave } from "react-icons/bs";
+import { RiHome5Line } from "react-icons/ri";
+import { BsPerson, BsHeart } from "react-icons/bs";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   const [onMobile, setOnMobile] = useState(false);
@@ -47,53 +48,37 @@ const Header = () => {
         <div className="logo">Logo</div>
         <div className="navbar">
           <ul>
-            <li>Home</li>
-            <li>Discover</li>
+            <li>
+              <NavLink
+                exact
+                to="/"
+                activeClassName="active"
+                className="nav-link"
+              >
+                <RiHome5Line />
+                <p> Home</p>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                exact
+                to="/discover"
+                activeClassName="active"
+                className="nav-link"
+              >
+                <BsSoundwave />
+                <p> Discover</p>
+              </NavLink>
+            </li>
+            <li>
+              <BsPerson />
+              <p> Artists</p>
+            </li>
+            <li>
+              <BsHeart />
+              <p> Favourites</p>
+            </li>
           </ul>
-
-          <motion.div className="searchBar">
-            <motion.div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "5vh",
-                width: "100%",
-              }}
-              animate={
-                (!isSearch && { height: "5vh", opacity: 1 }) ||
-                (isSearch && { height: 0, opacity: 0 })
-              }
-              onClick={isExpand}
-            >
-              <FiSearch />
-              <p>Search</p>
-            </motion.div>
-            <motion.div
-              animate={
-                (!isSearch && { height: 0 }) || (isSearch && { height: "30vh" })
-              }
-              className="expanded-search"
-            >
-              <input type="text" value={value} onChange={inputEvent} />
-              <button onClick={clearValue}>Clear</button>
-              <button onClick={isExpand}>
-                <ImCross />
-              </button>
-
-              <div className="headerCards">
-                {item?.Promise.map((result, index) => {
-                  <div className="headerCard" key={index}>
-                    <img src={result.image} alt="img" />
-                    <div className="cardText">
-                      <p>Name</p>
-                      <p>Sub title</p>
-                    </div>
-                  </div>;
-                })}
-              </div>
-            </motion.div>
-          </motion.div>
         </div>
 
         <div className="hamburger" onClick={onMobileExpand}>

@@ -1,0 +1,81 @@
+.browse {
+  display: flex;
+  flex-direction: column;
+  margin-left: 200px;
+  margin-right: 100px;
+
+  padding-top: 12vh;
+  padding-bottom: 5vh;
+  color: white;
+  background-color: #120e16;
+  min-height: 100vh;
+  z-index: 30;
+  overflow: hidden;
+}
+.new-releases {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  margin-left: 2rem;
+  position: relative;
+  width: 100%;
+}
+.new-release {
+  margin-left: 2rem;
+  font-weight: bold;
+  min-width: max-content;
+  margin-top: 1rem;
+}
+
+.language {
+  color: white;
+  display: flex;
+  height: 5vh;
+  margin-top: 1rem;
+  align-items: center;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.lang {
+  margin-right: 1rem;
+  font-size: 0.8rem;
+  min-width: max-content;
+  padding: 0.3rem 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: gray;
+  border-radius: 8px;
+}
+
+.language::-webkit-scrollbar {
+  display: none;
+}
+.bCard {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.bCard::-webkit-scrollbar {
+  display: none;
+}
+.chart {
+  display: flex;
+
+  flex-direction: column;
+}
+.chart-title {
+  margin-left: 2rem;
+  font-weight: bold;
+  min-width: max-content;
+  padding: 1rem 0;
+}
+.charts {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.charts::-webkit-scrollbar {
+  display: none;
+}
