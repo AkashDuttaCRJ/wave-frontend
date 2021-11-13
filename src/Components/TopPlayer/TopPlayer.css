@@ -1,0 +1,42 @@
+.top-player-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.top-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.poster-image {
+    height: 400px;
+    width: 400px;
+    overflow: hidden;
+    border-radius: 50px;
+    mask-image: paint(squircle);
+    -webkit-mask-image: paint(squircle);
+    background: paint(squircle);
+	--squircle-radius: 50px;
+    --squircle-smooth: 0.8;
+    filter: drop-shadow(5px 5px 17px #252525);
+}
+
+.poster-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.top-player h1 {
+    margin-top: 2rem;
+}
+
+.top-player p {
+    color: rgba(255, 255, 255, 0.7);
+}
