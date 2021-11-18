@@ -11,7 +11,8 @@ const SongItem = ({ songs, id, index, fav, artist }) => {
   const min = Math.floor(songs?.duration / 60);
   const sec = Math.floor(songs?.duration % 60);
 
-  const { favourites, setFavourites } = useContext(WaveContext);
+  const { favourites, setFavourites, currentPlayList, setCurrentPlayList } =
+    useContext(WaveContext);
   useEffect(() => {
     const checkFavourite = () => {
       setIsAdd(favourites?.includes(id));
@@ -22,9 +23,14 @@ const SongItem = ({ songs, id, index, fav, artist }) => {
   const deleteaitem = (id) => {
     setFavourites(favourites.filter((item) => item != id));
   };
+  const handleClick = () => {
+    setCurrentPlayList((pv) =>
+      currentPlayList?.length === 0 ? [songs] : [...pv, songs]
+    );
+  };
 
   return (
-    <div className="top-songs">
+    <div className="top-songs" onClick={handleClick}>
       <div className="top-song-details">
         <p>{index + 1}</p>
 

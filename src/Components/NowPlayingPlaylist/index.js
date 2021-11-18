@@ -9,7 +9,7 @@ const NowPlayingPlaylist = ({ tracks, trackIndex, setTrackIndex }) => {
   const items = useRef();
 
   useEffect(() => {
-    itemRef.current[trackIndex].scrollIntoView({
+    itemRef.current[trackIndex]?.scrollIntoView({
       behavior: "smooth",
       block: "center",
       inline: "end",
