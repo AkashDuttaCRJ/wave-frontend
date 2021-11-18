@@ -42,7 +42,7 @@ const Header = () => {
     setValue("");
   };
 
-  console.log(item);
+  // console.log(item);
   return (
     <div>
       <div className="header">
@@ -74,12 +74,28 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
+              {/* <NavLink
+                exact
+                to="/artists"
+                activeClassName="active"
+                className="nav-link"
+              >
+                <BsPerson />
+                <p> Artists</p>
+              </NavLink> */}
               <BsPerson />
               <p> Artists</p>
             </li>
             <li>
-              <BsHeart />
-              <p> Favourites</p>
+              <NavLink
+                exact
+                to="/favourites"
+                activeClassName="active"
+                className="nav-link"
+              >
+                <BsHeart />
+                <p>Favourites</p>
+              </NavLink>
             </li>
           </ul>
         </div>

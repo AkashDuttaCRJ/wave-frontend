@@ -4,7 +4,9 @@ import "./Browse.css";
 import { getCharts, getNewReleases, getPlayList, topArtists } from "../../API";
 import BrowserCard from "../../Components/BrowserCard";
 import { languages } from "../../helper";
-import ChartsCard from "../../ChartsCard";
+import ChartsCard from "../../Components/ChartsCard";
+import { useHistory } from "react-router";
+import { Link, NavLink } from "react-router-dom";
 
 const Browse = () => {
   const [newReleases, setNewReleaseds] = useState([]);
@@ -17,13 +19,7 @@ const Browse = () => {
 
   const [artist, setArtist] = useState();
 
-  // const fetchData = async () => {
-  //   const resp = await fetch(
-  //     `http://ec2-13-232-176-22.ap-south-1.compute.amazonaws.com/new-releases`
-  //   );
-  //   const data = resp.json();
-  //   return data;
-  // };
+  const history = useHistory();
   useEffect(() => {
     const fetchData = async () => {
       setNewReleaseds(await getNewReleases(language));
@@ -51,6 +47,8 @@ const Browse = () => {
     };
     artistData();
   }, []);
+
+  // console.log(artist?.top_artists);
 
   return (
     <div className="browse">
@@ -89,7 +87,7 @@ const Browse = () => {
         </div>
       </div>
 
-      <p className="new-release">Top Play_List</p>
+      <p className="new-release">Top Playlist</p>
       <div className="new-releases">
         <div className="language">
           {languages.map((lang, index) => {
@@ -119,7 +117,20 @@ const Browse = () => {
         <p className="chart-title">Top Artists</p>
         <div className="charts">
           {artist?.top_artists?.map((chart, index) => {
-            return <ChartsCard charts={chart} key={index} artist />;
+            const parts = chart?.perma_url?.split("/");
+            const part = parts.slice(-1)[0];
+            return (
+              <>
+                <div
+                  onClick={() => {
+                    history.push(`/artist/${part}`);
+                  }}
+                  key={index}
+                >
+                  <ChartsCard charts={chart} key={index} artist />
+                </div>
+              </>
+            );
           })}
         </div>
       </div>

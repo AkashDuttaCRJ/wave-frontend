@@ -1,0 +1,34 @@
+.favourite {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+  overflow: hidden;
+
+  padding-top: 15vh;
+  margin-right: 100px;
+  margin-left: 250px;
+}
+.favourite h3 {
+  margin-bottom: 1rem;
+}
+.fSongs {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  position: relative;
+}
+.fSongs img {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  margin-left: 1rem;
+}
+.fSongs .title {
+  padding-left: 3rem;
+  width: 20rem;
+}
+.fSongs .desc {
+  padding-left: 3rem;
+  width: 28rem;
+}
