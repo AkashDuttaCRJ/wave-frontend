@@ -3,6 +3,7 @@ import "./Header.css";
 import hamburger from "../../Assets/menu.svg";
 import { motion } from "framer-motion";
 import cross from "../../Assets/cross1.svg";
+import logo from "../../Assets/logo.svg";
 
 import { BsSoundwave } from "react-icons/bs";
 import { RiHome5Line } from "react-icons/ri";
@@ -45,7 +46,9 @@ const Header = () => {
   return (
     <div>
       <div className="header">
-        <div className="logo">Logo</div>
+        <div className="logo">
+          <img src={logo} alt="logo" />
+        </div>
         <div className="navbar">
           <ul>
             <li>

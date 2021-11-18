@@ -38,7 +38,7 @@ const Home = () => {
         square
       />
 
-      <Cards cardData={homeData?.browse_discover} title={"Browse"} />
+      <Cards cardData={homeData?.browse_discover} title={homeData?.browse_discover && "Browse"} />
 
       <Cards
         cardData={homeData?.city_mod}

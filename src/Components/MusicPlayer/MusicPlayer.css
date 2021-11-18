@@ -1,8 +1,12 @@
 .top-section {
   display: flex;
   background-color: #0d0c0f;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   overflow-x: clip;
+  z-index: 200;
 }
 
 .left-section {
