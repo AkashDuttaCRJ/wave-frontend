@@ -6,6 +6,9 @@ import Browse from "./Screens/Browse";
 import Home from "./Screens/Home";
 import { WaveProvider } from "./WaveContext";
 import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
+import Artists from "./Components/Artists";
+import Albums from "./Components/Albums";
+import Favourites from "./Screens/Favourites";
 
 function App() {
   if ("paintWorklet" in CSS) {
@@ -27,6 +30,12 @@ function App() {
             <Route path="/discover">
               <Browse />
             </Route>
+            <Route path="/favourites">
+              <Favourites />
+            </Route>
+            <Route exact path="/artist/:part" component={Artists} />
+            <Route exact path="/playlist/:id" component={Albums} />
+            <Route exact path="/album/:id" component={Albums} />
           </Switch>
 
           {/* <MusicPlayer /> */}

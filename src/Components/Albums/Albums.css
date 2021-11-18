@@ -1,0 +1,21 @@
+.albums {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+  overflow: hidden;
+
+  padding-top: 15vh;
+  margin-right: 100px;
+  margin-left: 250px;
+}
+.details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.details img {
+  height: 400px;
+  width: 400px;
+  object-fit: cover;
+}

@@ -1,0 +1,37 @@
+.top-songs {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-song-details {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  position: relative;
+}
+.top-song-details img {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  margin-left: 1rem;
+}
+.top-song-details .title {
+  padding-left: 3rem;
+  width: 20rem;
+}
+.top-song-details .desc {
+  padding-left: 3rem;
+  width: 28rem;
+}
+.song-favour {
+  padding-left: 1 rem;
+}
+.duration {
+  padding-left: 2rem;
+}
+.fav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.3rem;
+}

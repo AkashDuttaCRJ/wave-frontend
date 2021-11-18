@@ -1,0 +1,77 @@
+.main {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+  overflow: hidden;
+
+  padding-top: 15vh;
+  margin-right: 100px;
+  margin-left: 250px;
+}
+.main h3 {
+  margin: 1rem 0;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+}
+.details img {
+  height: 400px;
+  width: 400px;
+  object-fit: cover;
+}
+
+.details-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3rem;
+}
+.details-text h1,
+.details-text p {
+  padding: 0.5rem 0;
+}
+.details-text p {
+  font-size: 1.1rem;
+}
+.play-icon {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  justify-content: space-between;
+  max-width: 200px;
+  transition: 0.3s ease-in;
+}
+.play-icon button {
+  padding: 1rem 2.5rem;
+  background-color: gainsboro;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  max-width: max-content;
+  font-size: 1.2rem;
+}
+
+.recent-release {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin: 1.5rem 0;
+}
+.recent-release h3 {
+  position: absolute;
+  margin: -1.2rem 0;
+}
+.recent-release::-webkit-scrollbar {
+  display: none;
+}
+
+.image-overlay {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  top: 0;
+  left: 0;
+  background-color: chartreuse;
+}

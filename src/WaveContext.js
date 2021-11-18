@@ -25,7 +25,7 @@ export const WaveProvider = ({ children }) => {
   const fetchFromLocalStorage = () => {
     const data = JSON.parse(localStorage.getItem("id"));
 
-    data.length !== 0 ? setFavourites(data) : setFavourites([]);
+    data?.length !== 0 ? setFavourites(data) : setFavourites([]);
   };
 
   const updateLocalStorage = () => {

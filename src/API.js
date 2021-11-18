@@ -49,3 +49,30 @@ export const getSearchData = (search) => {
     .then((res) => res.data)
     .catch((err) => console.error(err));
 };
+
+export const getArtistData = (permaUrl) => {
+  return instance
+    .get(permaUrl)
+    .then((res) => res.data)
+    .catch((err) => console.error(err));
+};
+
+export const getPlayListData = (id) => {
+  return instance
+    .get(`/playlist/get/?id=${id}`)
+    .then((res) => res.data)
+    .catch((err) => console.error(err));
+};
+export const getAlbumsData = (id) => {
+  return instance
+    .get(`/album/get/?id=${id}`)
+    .then((res) => res.data)
+    .catch((err) => console.error(err));
+};
+
+export const getSongDetails = (id) => {
+  return instance
+    .get(`/song/get/?id=${id}`)
+    .then((res) => res.data)
+    .catch((err) => console.error(err));
+};

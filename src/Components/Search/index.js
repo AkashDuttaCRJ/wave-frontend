@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Search.css";
 import { motion } from "framer-motion";
 import { ImCross } from "react-icons/im";
@@ -29,9 +29,7 @@ const Search = () => {
   const isExpand = () => {
     setIsSearch(!isSearch);
   };
-  // const onMobileExpand = () => {
-  //   setOnMobile(!onMobile);
-  // };
+
   const inputEvent = (event) => {
     const data = event.target.value;
     setValue(data);
@@ -40,13 +38,7 @@ const Search = () => {
     setValue("");
   };
 
-  const inputRef = useRef();
-  // useEffect(() => {
-  //   isSearch && inputRef.current.focus();
-  // }, [isSearch]);
-
-  {
-  }
+  // console.log(searchData);
 
   return (
     <>
@@ -75,12 +67,7 @@ const Search = () => {
           }
           className="expanded-search"
         >
-          <input
-            type="text"
-            value={value}
-            onChange={inputEvent}
-            ref={inputRef}
-          />
+          <input type="text" value={value} onChange={inputEvent} />
           <div className="clear-cross">
             <button onClick={clearValue}>Clear</button>
             <button onClick={isExpand}>
@@ -93,52 +80,29 @@ const Search = () => {
               <>
                 <h3>{item?.modules?.new_trending.title}</h3>
                 {item?.new_trending.slice(0, 10)?.map((data, index) => {
-                  return (
-                    <div className="headerCard" key={index}>
-                      <img src={data?.image} alt="img" />
-                      <div className="cardText">
-                        <p> {truncate(data?.title, 8)}</p>
-                      </div>
-                    </div>
-                  );
+                  return <SearchCard data={data} key={index} />;
                 })}
               </>
             ) : (
               <>
-                <h3>Albums</h3>
+                {searchData?.topquery?.data && <h3>Topquery</h3>}
+                {searchData?.topquery?.data?.map((mapSearchData, index) => {
+                  return <SearchCard data={mapSearchData} key={index} />;
+                })}
+
+                {searchData?.albums?.data && <h3>Albums</h3>}
                 {searchData?.albums?.data?.map((mapSearchData, index) => {
-                  return (
-                    <div className="headerCard" key={index}>
-                      <img src={mapSearchData?.image} alt="img" />
-                      <div className="cardText">
-                        <p> {truncate(mapSearchData?.title, 8)}</p>
-                      </div>
-                    </div>
-                  );
+                  return <SearchCard data={mapSearchData} key={index} />;
                 })}
 
-                <h3>Artists</h3>
+                {searchData?.artists?.data && <h3>Artists</h3>}
                 {searchData?.artists?.data?.map((mapSearchData, index) => {
-                  return (
-                    <div className="headerCard" key={index}>
-                      <img src={mapSearchData?.image} alt="img" />
-                      <div className="cardText">
-                        <p> {truncate(mapSearchData?.title, 8)}</p>
-                      </div>
-                    </div>
-                  );
+                  return <SearchCard data={mapSearchData} key={index} />;
                 })}
 
-                <h3>Songs</h3>
+                {searchData?.songs?.data && <h3>Songs</h3>}
                 {searchData?.songs?.data?.map((mapSearchData, index) => {
-                  return (
-                    <div className="headerCard" key={index}>
-                      <img src={mapSearchData?.image} alt="img" />
-                      <div className="cardText">
-                        <p> {truncate(mapSearchData?.title, 8)}</p>
-                      </div>
-                    </div>
-                  );
+                  return <SearchCard data={mapSearchData} key={index} />;
                 })}
               </>
             )}
@@ -150,3 +114,16 @@ const Search = () => {
 };
 
 export default Search;
+
+const SearchCard = ({ data, key }) => {
+  return (
+    <div>
+      <div className="headerCard">
+        <img src={data?.image} alt="img" />
+        <div className="cardText">
+          <p> {truncate(data?.title, 8)}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
