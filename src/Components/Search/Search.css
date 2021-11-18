@@ -30,6 +30,7 @@
 }
 
 .searchBar p {
+  margin-left: 5px;
   font-size: 0.8rem;
   color: white;
 }

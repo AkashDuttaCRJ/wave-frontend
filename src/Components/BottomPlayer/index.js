@@ -25,7 +25,7 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
     }, [volumeUpKeypress, volumeDownKeypress, volumeKeypress])
 
     // Refs
-    const audioRef = useRef(new Audio(tracks[trackIndex].media_url));
+    const audioRef = useRef(new Audio(tracks[trackIndex]?.media_url));
     const intervalRef = useRef();
     const isReady = useRef(false);
 
@@ -64,7 +64,7 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
     useEffect(() => {
       audioRef.current.pause();
     
-      audioRef.current = new Audio(tracks[trackIndex].media_url);
+      audioRef.current = new Audio(tracks[trackIndex]?.media_url);
         setTrackProgress(audioRef.current.currentTime);
         audioRef.current.volume = volumeProgress;
     
@@ -151,6 +151,7 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
                 onPrevClick={toPrevTrack}
                 onNextClick={toNextTrack}
                 onPlayPauseClick={setIsPlaying}
+                tracks={tracks}
             />
             <div className="progress-container">
               <input
@@ -164,9 +165,10 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
                   onMouseUp={onScrubEnd}
                   onKeyUp={onScrubEnd}
                   style={{ background: trackStyling }}
+                  disabled={tracks.length === 0 && true}
               />
             </div>
-            <div className="timers">{trackProgress ? formatTime(trackProgress) : "0:00"} / {duration ? formatTime(duration) : "0:00"}</div>
+            <div className="timers"  style={tracks.length === 0 ? {color: "#818181"} : {color: "#fff"}}>{trackProgress ? formatTime(trackProgress) : "0:00"} / {duration ? formatTime(duration) : "0:00"}</div>
             <div className="volume-container">
               <button
               type="button"
@@ -175,6 +177,7 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
               onClick={() => volumeProgress === 0 ? changeVolume(1) : changeVolume(0)}
               onMouseEnter={() => setShowVolumeBar(true)}
               onMouseLeave={() => setShowVolumeBar(false)}
+              disabled={tracks.length === 0 && true}
               >
                   {volumeProgress > 0.5 ? (
                     <IoMdVolumeHigh />
@@ -201,6 +204,7 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
                   onFocus={() => setVolumeAvailable(false)}
                   onBlur={() => setVolumeAvailable(true)}
                   style={{ background: volumeTrackStyling }}
+                  disabled={tracks.length === 0 && true}
                 />
               </div>}
             </div>
@@ -210,7 +214,7 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
 
 export default BottomPlayer
 
-const AudioControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick }) => {
+const AudioControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick, tracks }) => {
   const [playPauseAvailable, setPlayPauseAvailable] = useState(true)
   const keypress = useKeyPress(" ")
 
@@ -225,6 +229,7 @@ const AudioControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick }
             className="prev"
             aria-label="Previous"
             onClick={onPrevClick}
+            disabled={tracks.length === 0 && true}
             >
                 <BsFillSkipStartFill />
             </button>
@@ -236,6 +241,7 @@ const AudioControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick }
                 onFocus={() => setPlayPauseAvailable(false)}
                 onBlur={() => setPlayPauseAvailable(true)}
                 aria-label="Pause"
+                disabled={tracks.length === 0 && true}
             >
                 <BsPauseFill />
             </button>
@@ -247,6 +253,7 @@ const AudioControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick }
                 onFocus={() => setPlayPauseAvailable(false)}
                 onBlur={() => setPlayPauseAvailable(true)}
                 aria-label="Play"
+                disabled={tracks.length === 0 && true}
             >
                 <BsFillPlayFill style={{ marginLeft: "4px" }} />
             </button>
@@ -256,6 +263,7 @@ const AudioControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick }
             className="next"
             aria-label="Next"
             onClick={onNextClick}
+            disabled={tracks.length === 0 && true}
             >
                 <BsFillSkipEndFill />
             </button>
@@ -274,14 +282,14 @@ const MiniView = ({ data }) => {
         >
           <div className="content-image">
             <img
-              src={data.image}
-              alt={data.song}
+              src={data?.image}
+              alt={data?.song}
             />
           </div>
           <div className="content">
-            <div className="song-name">{truncate(data.song, 55)}</div>
+            <div className="song-name">{truncate(data?.song, 55)}</div>
             <div className="artist-names">
-              {truncate(data.primary_artists, 60)}
+              {truncate(data?.primary_artists, 60)}
             </div>
           </div>
         </div>

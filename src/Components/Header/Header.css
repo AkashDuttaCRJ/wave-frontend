@@ -7,7 +7,8 @@ button {
   width: 200px;
   height: 100vh;
   /* background-color: #0e0d12; */
-  background-color: rebeccapurple;
+  background-color: #19181D;
+  /* box-shadow: 2px 0 15px rgb(58, 58, 58); */
   color: #fff;
   display: flex;
   align-items: center;
@@ -21,7 +22,13 @@ button {
 }
 .logo {
   margin-top: 2rem;
+  width: 90%;
 }
+
+.logo img {
+  width: 100%;
+}
+
 .navbar {
   height: 100%;
   width: 100%;
@@ -59,6 +66,7 @@ button {
 }
 .active {
   font-weight: bold;
+  color: #00D673;
 }
 .navbar-mobile {
   display: none;

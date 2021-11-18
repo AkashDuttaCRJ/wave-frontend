@@ -4,6 +4,8 @@ export const WaveContext = createContext();
 
 export const WaveProvider = ({ children }) => {
   const [currentPlayList, setCurrentPlayList] = useState([]);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const [fullView, setFullView] = useState(false);
   const [favourites, setFavourites] = useState([]);
   const [initial, setInitial] = useState(true);
 
@@ -25,7 +27,7 @@ export const WaveProvider = ({ children }) => {
   const fetchFromLocalStorage = () => {
     const data = JSON.parse(localStorage.getItem("id"));
 
-    data.length !== 0 ? setFavourites(data) : setFavourites([]);
+    data?.length !== 0 ? setFavourites(data) : setFavourites([]);
   };
 
   const updateLocalStorage = () => {
@@ -34,7 +36,7 @@ export const WaveProvider = ({ children }) => {
 
   return (
     <WaveContext.Provider
-      value={{ currentPlayList, setCurrentPlayList, favourites, setFavourites }}
+      value={{ currentPlayList, setCurrentPlayList, favourites, setFavourites, fullView, setFullView, trackIndex, setTrackIndex }}
     >
       {children}
     </WaveContext.Provider>
