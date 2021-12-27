@@ -1,48 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Header.css";
-import hamburger from "../../Assets/menu.svg";
+
 import { motion } from "framer-motion";
-import cross from "../../Assets/cross1.svg";
+
 import logo from "../../Assets/logo.svg";
+import cross from "../../Assets/cross.svg";
+import menu from "../../Assets/menu.svg";
 
 import { BsSoundwave } from "react-icons/bs";
 import { RiHome5Line } from "react-icons/ri";
 import { BsPerson, BsHeart } from "react-icons/bs";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { FiSearch } from "react-icons/fi";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { WaveContext } from "../../WaveContext";
 
 const Header = () => {
   const [onMobile, setOnMobile] = useState(false);
-  const [isSearch, setIsSearch] = useState(false);
-  const [value, setValue] = useState("");
-  const [item, setItem] = useState();
-  // const [searchResult, setSearchResult] = useState(null);
-  useEffect(() => {
-    setItem(getSearchData());
-  }, [value]);
+  const { nav, setNav } = useContext(WaveContext);
 
-  const getSearchData = async () => {
-    const response = await fetch(
-      `http://ec2-13-232-176-22.ap-south-1.compute.amazonaws.com/result/?query=${value}`
-    );
-    const searchData = response.json();
-    return searchData;
-  };
+  const history = useHistory();
 
-  const isExpand = () => {
-    setIsSearch(!isSearch);
-  };
   const onMobileExpand = () => {
     setOnMobile(!onMobile);
   };
-  const inputEvent = (event) => {
-    const data = event.target.value;
-    setValue(data);
-  };
-  const clearValue = () => {
-    setValue("");
-  };
 
-  // console.log(item);
   return (
     <div>
       <div className="header">
@@ -74,15 +56,6 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              {/* <NavLink
-                exact
-                to="/artists"
-                activeClassName="active"
-                className="nav-link"
-              >
-                <BsPerson />
-                <p> Artists</p>
-              </NavLink> */}
               <BsPerson />
               <p> Artists</p>
             </li>
@@ -99,41 +72,88 @@ const Header = () => {
             </li>
           </ul>
         </div>
-
-        <div className="hamburger" onClick={onMobileExpand}>
-          <img src={hamburger} alt="hamburger" />
-        </div>
-        <motion.div
-          animate={
-            (onMobile && { x: 0, opacity: 1, pointerEvents: "all" }) ||
-            (!onMobile && { x: 300, opacity: 0, pointerEvents: "none" })
-          }
-          transition={{ type: "tween" }}
-          className="navbar-mobile"
-        >
-          <ul>
-            <li>Home</li>
-            <li>Discover</li>
-          </ul>
-          <div className="search-mobile">
-            <div className="mSearchInput">
-              <input
-                type="text"
-                placeholder="whats in your mind"
-                value={value}
-                onChange={inputEvent}
-              />
-              <button onClick={clearValue}>Clear</button>
-              {/* <button type="submit">
-                <img src={search} alt="search" />
-              </button> */}
-            </div>
-            <button className="cross" onClick={onMobileExpand} type="button">
-              <img src={cross} alt="cross" />
-            </button>
-          </div>
-        </motion.div>
       </div>
+
+      <motion.div
+        className="mobile"
+        animate={
+          (nav && { x: 0, opacity: 1 }) || (!nav && { y: -100, opacity: 0 })
+        }
+        transition={{ type: "tween" }}
+      >
+        <div
+          className="mobile-logo"
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          <img src={logo} alt="logo" />
+        </div>
+
+        <div className="hamburger">
+          <div className="search-icon">
+            <FiSearch
+              size={"20px"}
+              onClick={() => {
+                history.push("/search");
+                setNav(!nav);
+              }}
+            />
+          </div>
+          <div className="ham-icon" onClick={onMobileExpand}>
+            {onMobile ? (
+              <img src={cross} alt="cross" />
+            ) : (
+              <img src={menu} alt="cross" />
+            )}
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.div
+        animate={
+          (onMobile && { x: 0, opacity: 1, pointerEvents: "all" }) ||
+          (!onMobile && { x: 100, opacity: 0, pointerEvents: "none" })
+        }
+        transition={{ type: "tween" }}
+        className="navbar-mobile"
+      >
+        <ul
+          onClick={() => {
+            setOnMobile(!onMobile);
+          }}
+        >
+          <li>
+            <NavLink exact to="/" activeClassName="active" className="nav-link">
+              <RiHome5Line />
+              <p> Home</p>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              exact
+              to="/discover"
+              activeClassName="active"
+              className="nav-link"
+            >
+              <BsSoundwave />
+              <p> Discover</p>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              exact
+              to="/favourites"
+              activeClassName="active"
+              className="nav-link"
+            >
+              <BsHeart />
+              <p>Favourites</p>
+            </NavLink>
+          </li>
+        </ul>
+      </motion.div>
     </div>
   );
 };

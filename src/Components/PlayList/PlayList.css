@@ -1,18 +1,19 @@
-.albums {
+.playlist {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow: hidden;
   margin-right: 100px;
   margin-left: 250px;
 }
-.album-details {
+.playlist-details {
   display: flex;
   align-items: center;
   margin-block: 2rem;
   margin-left: 2rem;
 }
 
-.album-details img {
+.playlist-details img {
   height: 400px;
   width: 400px;
   object-fit: cover;
@@ -22,56 +23,41 @@
   --squircle-radius: 15px;
   --squircle-smooth: 0.8;
 }
-.album-details-text {
+
+.playlist-details-text {
   display: flex;
   flex-direction: column;
   margin-left: 3rem;
 }
-.album-details-text-heading {
+.playlist-details-text-heading {
   font-size: 2.2rem;
 }
-.album-release-date {
-  font-size: 1.2rem;
-}
-.recent-albums {
+
+.recent-playlist {
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
   margin-bottom: 5rem;
 }
-.top-songs {
-  margin-left: 1rem;
-}
-.top-song-heading {
-  margin-left: 1rem;
-}
-.recent-albums::-webkit-scrollbar {
+
+.recent-playlist::-webkit-scrollbar {
   display: none;
 }
 @media only screen and (max-width: 35rem) {
-  .albums {
+  .playlist {
     margin: 11vh 0 0 0;
     padding: 0;
   }
-  .album-details {
-    margin-left: 2rem;
-  }
-  .album-details img {
+  .playlist-details img {
     height: 150px;
     width: 150px;
   }
-  .album-details-text {
+  .playlist-details-text {
     margin-left: 2rem;
   }
-
-  .album-details-text-heading {
-    font-size: 1.2rem;
-    margin: 0;
-  }
-  .album-release-date {
-    font-size: 0.8rem;
-  }
-  .recent-album-title {
-    margin-left: 2rem;
+  .playlist-details-text-heading {
+    font-size: 1rem;
+    grid-column-start: 2;
+    grid-column-end: 3;
   }
 }

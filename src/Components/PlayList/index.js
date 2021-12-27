@@ -1,31 +1,31 @@
+import "./PlayList.css";
 import React, { useContext, useEffect } from "react";
-import { useState } from "react/cjs/react.development";
-import { getAlbumDetailsByYear, getAlbumsData } from "../../API";
-import "./Albums.css";
+import { getPlayListData, getRecoPlayList } from "../../API";
 import SongItem from "../SongItem";
-import { truncate } from "../../helper";
+import { useState } from "react/cjs/react.development";
 import Cards from "../Cards";
 import { WaveContext } from "../../WaveContext";
 import SyncLoader from "react-spinners/SyncLoader";
-
-const Albums = ({ match }) => {
+const PlayList = ({ match }) => {
   const [data, setData] = useState();
-  const [recentAlbums, setRecentAlbums] = useState();
+  const [recoPlayList, setRecoPlayList] = useState();
   const { currentPlayList, setCurrentPlayList } = useContext(WaveContext);
   const [loader, setLoader] = useState(true);
   useEffect(() => {
-    const getAlbumData = async () => {
-      setData(await getAlbumsData(match?.params?.id));
+    const getPlayListsData = async () => {
+      setData(await getPlayListData(match?.params?.id));
     };
-    getAlbumData();
-  }, [match?.params?.id]);
+
+    getPlayListsData();
+  }, [recoPlayList]);
 
   useEffect(() => {
-    const getAlbumData = async () => {
-      setRecentAlbums(await getAlbumDetailsByYear(data?.year));
+    const getRecoPlayLists = async () => {
+      setRecoPlayList(await getRecoPlayList(data?.listid));
     };
-    getAlbumData();
-  }, [data]);
+
+    getRecoPlayLists();
+  }, [match?.params?.id]);
 
   const handleClick = () => {
     !currentPlayList.includes(data?.songs[0]) &&
@@ -47,16 +47,12 @@ const Albums = ({ match }) => {
       {data && setLoader(false)}
     </div>
   ) : (
-    <div className="albums">
-      <div className="album-details">
-        <img src={data?.image} alt="Album" />
-        <div className="album-details-text">
-          <h1 className="album-details-text-heading">
-            {truncate(data?.name, 20)}
-          </h1>
-          <p className="album-release-date">
-            Release Date {data?.release_date}
-          </p>
+    <div className="playlist">
+      <div className="playlist-details">
+        <img src={data?.image} alt="Image" />
+        <div className="playlist-details-text">
+          <h1 className="playlist-details-text-heading">{data?.listname}</h1>
+
           <div className="mobile-play-icon" onClick={handleClick}>
             Play
           </div>
@@ -64,7 +60,7 @@ const Albums = ({ match }) => {
       </div>
 
       <div className="top-songs">
-        <h3 className="top-song-heading">{data?.songs && "Top Songs"}</h3>
+        <h3 className="top-song-heading">Top Songs</h3>
         {data?.songs?.map((songs, index) => {
           return (
             <SongItem
@@ -77,12 +73,12 @@ const Albums = ({ match }) => {
           );
         })}
       </div>
-      <p className="recent-album-title">{recentAlbums && "Recent Albums"}</p>
-      <div className="recent-albums">
-        <Cards cardData={recentAlbums} />
+
+      <div className="recent-playlist">
+        <Cards cardData={recoPlayList} />
       </div>
     </div>
   );
 };
 
-export default Albums;
+export default PlayList;

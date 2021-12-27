@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://ec2-13-232-176-22.ap-south-1.compute.amazonaws.com/",
+  baseURL: "https://api-jiosaavn.herokuapp.com",
 });
 
 export const getHomeData = () => {
@@ -73,6 +73,20 @@ export const getAlbumsData = (id) => {
 export const getSongDetails = (id) => {
   return instance
     .get(`/song/get/?id=${id}`)
+    .then((res) => res.data)
+    .catch((err) => console.error(err));
+};
+
+export const getAlbumDetailsByYear = (year) => {
+  return instance
+    .get(`/top-albums/?year=${year}`)
+    .then((res) => res.data)
+    .catch((err) => console.error(err));
+};
+
+export const getRecoPlayList = (id) => {
+  return instance
+    .get(`/playlist/reco/?id=${id}`)
     .then((res) => res.data)
     .catch((err) => console.error(err));
 };

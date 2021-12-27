@@ -8,7 +8,7 @@ export const WaveProvider = ({ children }) => {
   const [fullView, setFullView] = useState(false);
   const [favourites, setFavourites] = useState([]);
   const [initial, setInitial] = useState(true);
-
+  const [nav, setNav] = useState(true);
   useEffect(() => {
     const initialLocalStorage = () => {
       const initialStore = localStorage.getItem("first");
@@ -36,7 +36,18 @@ export const WaveProvider = ({ children }) => {
 
   return (
     <WaveContext.Provider
-      value={{ currentPlayList, setCurrentPlayList, favourites, setFavourites, fullView, setFullView, trackIndex, setTrackIndex }}
+      value={{
+        currentPlayList,
+        setCurrentPlayList,
+        favourites,
+        setFavourites,
+        fullView,
+        setFullView,
+        trackIndex,
+        setTrackIndex,
+        nav,
+        setNav,
+      }}
     >
       {children}
     </WaveContext.Provider>

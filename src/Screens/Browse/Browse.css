@@ -4,8 +4,7 @@
   margin-left: 200px;
   margin-right: 100px;
 
-  padding-top: 12vh;
-  padding-bottom: 5vh;
+  padding-bottom: 15vh;
   color: white;
   background-color: #120e16;
   min-height: 100vh;
@@ -40,12 +39,20 @@
   margin-right: 1rem;
   font-size: 0.8rem;
   min-width: max-content;
-  padding: 0.3rem 0.7rem;
+  padding: 0.4rem 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: gray;
-  border-radius: 8px;
+  background-color: #191b1f;
+  border-radius: 40px;
+  transition: background 0.05s ease-in-out;
+}
+.lang:hover {
+  background-color: #00aa5b;
+}
+
+.activeLang {
+  background-color: #00d673;
 }
 
 .language::-webkit-scrollbar {
@@ -78,4 +85,22 @@
 
 .charts::-webkit-scrollbar {
   display: none;
+}
+
+@media only screen and (max-width: 35rem) {
+  .browse {
+    padding-top: 0;
+    margin-left: 0;
+    margin-top: 5rem;
+  }
+  .lang {
+    font-size: 0.6rem;
+
+    padding: 0.3rem 0.8rem;
+    border-radius: 25px;
+  }
+  .chart-title {
+    font-size: 1rem;
+    padding: 0.5rem 0;
+  }
 }

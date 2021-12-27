@@ -103,3 +103,19 @@
 .card-type {
   color: rgba(255, 255, 255, 0.7);
 }
+
+@media only screen and (max-width: 35rem) {
+  .container {
+    margin-bottom: 1rem;
+    margin-top: 0.8rem;
+  }
+  .card {
+    --mobile-card-width: 150px;
+    --card-height: 150px;
+    min-width: var(--mobile-card-width);
+    height: var(--card-height);
+  }
+  .imgBox {
+    top: 3.65rem;
+  }
+}

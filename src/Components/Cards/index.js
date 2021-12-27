@@ -1,15 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "./Cards.css";
 import { BsPlay } from "react-icons/bs";
 
 import { truncate } from "../../helper";
 import { useHistory } from "react-router";
+import { WaveContext } from "../../WaveContext";
+import { getAlbumsData, getPlayListData } from "../../API";
 
 const Cards = ({ cardData, title, large, square }) => {
   const history = useHistory();
+  const { currentPlayList, setCurrentPlayList } = useContext(WaveContext);
 
-  // console.log(cardData);
+  const queue = (data, index) => {
+    console.log(data?.songs[0]);
+    !currentPlayList.includes(data?.songs[0]?.song) &&
+      setCurrentPlayList((pv) =>
+        currentPlayList?.length === 0
+          ? [...data?.songs]
+          : [...pv, ...data?.songs]
+      );
+  };
 
+  const playListData = (id, index) => {
+    getPlayListData(id).then((data) => {
+      queue(data, index);
+    });
+  };
+
+  const albumData = (id, index) => {
+    getAlbumsData(id).then((data) => {
+      queue(data, index);
+    });
+  };
+
+  const handleClick = (items, index) => {
+    if (items?.type === "playlist") {
+      playListData(items?.id, index);
+    } else if (items?.type === "album") {
+      albumData(items?.id, index);
+    } else if (items?.type === "song") {
+      albumData(items?.more_info?.album_id, index);
+    }
+  };
   return (
     <div>
       <div className="container">
@@ -21,8 +53,14 @@ const Cards = ({ cardData, title, large, square }) => {
                 className="card"
                 key={index}
                 style={
-                  (square && { "--card-width": "200px" }) ||
-                  (large && { "--card-width": "300px" })
+                  (square && {
+                    "--card-width": "200px",
+                    "--mobile-card-width": "150px",
+                  }) ||
+                  (large && {
+                    "--card-width": "300px",
+                    "--mobile-card-width": "200px",
+                  })
                 }
                 onClick={() => {
                   if (items?.type === "playlist") {
@@ -34,8 +72,14 @@ const Cards = ({ cardData, title, large, square }) => {
                   }
                 }}
               >
-                <img src={items.image} alt="image" />
-                <div className="imgBox">
+                <img src={items.image} alt="ItemImage" />
+                <div
+                  className="imgBox"
+                  onClick={(e) => {
+                    handleClick(items, index);
+                    e.stopPropagation();
+                  }}
+                >
                   <BsPlay />
                 </div>
                 <div className="card-text">

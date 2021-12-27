@@ -12,7 +12,7 @@
   position: fixed;
   top: 50%;
   right: 0;
-  transform: translateX(80%) translateY(-50%);
+  transform: translateX(0%) translateY(-50%);
   z-index: 210;
 }
 
@@ -79,4 +79,17 @@
 
 .np-item-duration {
   font-size: 0.85rem;
+}
+
+.np-item .fav-icon {
+  margin-right: 1rem;
+}
+
+.queue-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  text-align: center;
+  height: 5vh;
+  width: 100%;
 }

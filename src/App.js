@@ -5,13 +5,14 @@ import Search from "./Components/Search";
 import Browse from "./Screens/Browse";
 import Home from "./Screens/Home";
 import { WaveProvider } from "./WaveContext";
-import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Artists from "./Components/Artists";
 import Albums from "./Components/Albums";
 import Favourites from "./Screens/Favourites";
+import PlayList from "./Components/PlayList";
+import SearchMobile from "./Components/SearchMobile";
 
 function App() {
-
   if ("paintWorklet" in CSS) {
     CSS.paintWorklet.addModule(
       "https://www.unpkg.com/css-houdini-squircle@0.1.3/squircle.min.js"
@@ -36,8 +37,9 @@ function App() {
               <Favourites />
             </Route>
             <Route exact path="/artist/:part" component={Artists} />
-            <Route exact path="/playlist/:id" component={Albums} />
+            <Route exact path="/playlist/:id" component={PlayList} />
             <Route exact path="/album/:id" component={Albums} />
+            <Route exact path="/search" component={SearchMobile} />
           </Switch>
 
           <MusicPlayer />

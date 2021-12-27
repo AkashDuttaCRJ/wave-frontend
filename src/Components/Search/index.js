@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Search.css";
 import { motion } from "framer-motion";
 import { ImCross } from "react-icons/im";
 import { FiSearch } from "react-icons/fi";
 import { getHomeData, getSearchData } from "../../API";
-import { truncate } from "../../helper";
+
+import SearchCard from "../SearchCard";
 
 const Search = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [value, setValue] = useState("");
   const [item, setItem] = useState();
   const [searchData, setSearchData] = useState();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const search = async () => {
@@ -26,6 +28,9 @@ const Search = () => {
     trending();
   }, []);
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [isSearch]);
   const isExpand = () => {
     setIsSearch(!isSearch);
   };
@@ -37,8 +42,6 @@ const Search = () => {
   const clearValue = () => {
     setValue("");
   };
-
-  // console.log(searchData);
 
   return (
     <>
@@ -54,7 +57,7 @@ const Search = () => {
           }}
           animate={
             (!isSearch && { height: "5vh", opacity: 1 }) ||
-            (isSearch && { height: 0, opacity: 0 })
+            (isSearch && { height: 0, opacity: 0, display: "none" })
           }
           onClick={isExpand}
         >
@@ -63,11 +66,21 @@ const Search = () => {
         </motion.div>
         <motion.div
           animate={
-            (!isSearch && { height: 0 }) || (isSearch && { height: "30vh" })
+            (!isSearch && { height: 0, display: "none" }) ||
+            (isSearch && { height: "40vh" })
           }
           className="expanded-search"
         >
-          <input type="text" value={value} onChange={inputEvent} />
+          <div className="input">
+            <FiSearch />
+            <input
+              type="search"
+              value={value}
+              onChange={inputEvent}
+              ref={inputRef}
+            />
+          </div>
+
           <div className="clear-cross">
             <button onClick={clearValue}>Clear</button>
             <button onClick={isExpand}>
@@ -78,32 +91,39 @@ const Search = () => {
           <div className="headerCards">
             {value === "" ? (
               <>
-                <h3>{item?.modules?.new_trending.title}</h3>
-                {item?.new_trending.slice(0, 10)?.map((data, index) => {
-                  return <SearchCard data={data} key={index} />;
-                })}
+                <SearchCard
+                  title="Trending Now"
+                  data={item?.new_trending.slice(0, 10)}
+                  isSearch={isSearch}
+                  setIsSearch={setIsSearch}
+                />
               </>
             ) : (
               <>
-                {searchData?.topquery?.data && <h3>Topquery</h3>}
-                {searchData?.topquery?.data?.map((mapSearchData, index) => {
-                  return <SearchCard data={mapSearchData} key={index} />;
-                })}
-
-                {searchData?.albums?.data && <h3>Albums</h3>}
-                {searchData?.albums?.data?.map((mapSearchData, index) => {
-                  return <SearchCard data={mapSearchData} key={index} />;
-                })}
-
-                {searchData?.artists?.data && <h3>Artists</h3>}
-                {searchData?.artists?.data?.map((mapSearchData, index) => {
-                  return <SearchCard data={mapSearchData} key={index} />;
-                })}
-
-                {searchData?.songs?.data && <h3>Songs</h3>}
-                {searchData?.songs?.data?.map((mapSearchData, index) => {
-                  return <SearchCard data={mapSearchData} key={index} />;
-                })}
+                <SearchCard
+                  title={searchData?.topquery?.data[0] && "Topquery"}
+                  data={searchData?.topquery?.data}
+                  isSearch={isSearch}
+                  setIsSearch={setIsSearch}
+                />
+                <SearchCard
+                  title={searchData?.albums?.data[0] && "Albums"}
+                  data={searchData?.albums?.data}
+                  isSearch={isSearch}
+                  setIsSearch={setIsSearch}
+                />
+                <SearchCard
+                  title={searchData?.artists?.data[0] && "Artists"}
+                  data={searchData?.artists?.data}
+                  isSearch={isSearch}
+                  setIsSearch={setIsSearch}
+                />
+                <SearchCard
+                  title={searchData?.songs?.data[0] && "Songs"}
+                  data={searchData?.songs?.data}
+                  isSearch={isSearch}
+                  setIsSearch={setIsSearch}
+                />
               </>
             )}
           </div>
@@ -115,15 +135,18 @@ const Search = () => {
 
 export default Search;
 
-const SearchCard = ({ data, key }) => {
-  return (
-    <div>
-      <div className="headerCard">
-        <img src={data?.image} alt="img" />
-        <div className="cardText">
-          <p> {truncate(data?.title, 8)}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
+// onClick={
+//   items?.type === "playlist"
+//     ? history.push(`/playlist/${items?.id}`)
+//     : history.push(`/album/${items?.id}`)
+// }
+
+// onClick={playList
+//   ? (newRelease?.listid &&
+//       history.push(`/playlist/${newRelease?.listid}`)) ||
+//     (newRelease?.id && history.push(`/playlist/${newRelease?.id}`))
+//   : (newRelease?.albumid &&
+//       history.push(`/album/${newRelease?.albumid}`)) ||
+//     (newRelease?.id && history.push(`/album/${newRelease?.id}`)) ||
+//     (newRelease?.more_info?.album_id &&
+//       history.push(`/album/${newRelease?.more_info?.album_id}`))}

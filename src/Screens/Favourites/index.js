@@ -4,10 +4,12 @@ import { getSongDetails } from "../../API";
 import SongItem from "../../Components/SongItem";
 import { WaveContext } from "../../WaveContext";
 import "./Favourites.css";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const Favourites = () => {
-  const { favourites, setFavourites } = useContext(WaveContext);
+  const { favourites } = useContext(WaveContext);
   const [songData, setSongData] = useState([]);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     const data = async () => {
@@ -21,11 +23,24 @@ const Favourites = () => {
     favourites && data();
   }, [favourites]);
 
-  return (
+  return loader ? (
+    <div className="loader">
+      <SyncLoader
+        loading="true"
+        color="#00d673"
+        size="15px"
+        speedMultiplier="0.5"
+      />
+      {songData && setLoader(false)}
+    </div>
+  ) : (
     <div className="favourite">
       <h3>Favourites</h3>
+
       {songData?.map((item, index) => {
-        return <SongItem songs={item} index={index} id={item?.id} fav />;
+        return (
+          <SongItem songs={item} key={index} index={index} id={item?.id} fav />
+        );
       })}
     </div>
   );

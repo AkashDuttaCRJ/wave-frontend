@@ -1,11 +1,9 @@
 .favourite {
   display: flex;
   flex-direction: column;
-
   min-height: 100vh;
   overflow: hidden;
 
-  padding-top: 15vh;
   margin-right: 100px;
   margin-left: 250px;
 }
@@ -23,6 +21,11 @@
   width: 50px;
   object-fit: cover;
   margin-left: 1rem;
+  mask-image: paint(squircle);
+  -webkit-mask-image: paint(squircle);
+  background: paint(squircle);
+  --squircle-radius: 15px;
+  --squircle-smooth: 0.8;
 }
 .fSongs .title {
   padding-left: 3rem;
@@ -31,4 +34,11 @@
 .fSongs .desc {
   padding-left: 3rem;
   width: 28rem;
+}
+
+@media only screen and (max-width: 35rem) {
+  .favourite {
+    margin: 11vh 0 0 2rem;
+    padding: 0;
+  }
 }

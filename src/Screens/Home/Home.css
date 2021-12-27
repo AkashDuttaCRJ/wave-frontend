@@ -1,7 +1,6 @@
 .home {
-  padding-top: 10vh;
-  margin-right: 100px;
   margin-left: 200px;
+  padding-bottom: 10vh;
 }
 .greeting {
   margin-left: 2rem;
@@ -14,8 +13,17 @@
   min-width: max-content;
   z-index: 21;
 }
-@media only screen and (max-width: 600px) {
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 150;
+}
+@media only screen and (max-width: 35rem) {
   .home {
-    margin-left: 150px;
+    padding-top: 0;
+    margin-left: 0;
+    margin-top: 5rem;
   }
 }

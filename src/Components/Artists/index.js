@@ -1,66 +1,113 @@
-import React, { useEffect, useState } from "react";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import React, { useContext, useEffect, useState } from "react";
 import "./Artists.css";
-import { getArtistData } from "../../API";
-
+import { getArtistData, getSongDetails } from "../../API";
 import BrowserCard from "../BrowserCard";
 import SongItem from "../SongItem";
-
+import { WaveContext } from "../../WaveContext";
+import SyncLoader from "react-spinners/SyncLoader";
 const Artists = ({ match }) => {
   const [artistsData, setArtistsData] = useState();
-  const [favouriteIcon, setFavouriteIcon] = useState(false);
-
+  const { currentPlayList, setCurrentPlayList } = useContext(WaveContext);
+  const [relatedArtists, setRelatedArtists] = useState(false);
+  const [loader, setLoader] = useState(true);
   useEffect(() => {
     const getData = async () => {
-      setArtistsData(
-        await getArtistData(`artist/?query=${match?.params?.part}`)
-      );
+      setArtistsData(await getArtistData(`/artist/?id=${match?.params?.part}`));
     };
     getData();
-  }, []);
+  }, [match?.params?.part]);
 
-  return (
+  const ids = () => {
+    artistsData?.topSongs.slice(0, 10).map(async (id, index) => {
+      await getSongDetails(id?.id).then((res) =>
+        handleClick((pv) => {
+          return [...pv, res];
+        })
+      );
+    });
+  };
+
+  const handleClick = (res) => {
+    !currentPlayList.includes(res[0]) &&
+      setCurrentPlayList((pv) =>
+        currentPlayList?.length === 0 ? [res] : [...pv, res]
+      );
+  };
+
+  return loader ? (
+    <div className="loader">
+      <SyncLoader
+        loading="true"
+        color="#00d673"
+        size="15px"
+        speedMultiplier="0.5"
+      />
+      {artistsData && setLoader(false)}
+    </div>
+  ) : (
     <div className="main">
-      <div className="details">
-        <img src={artistsData?.image} alt="artist-image" />
-        <div className="details-text">
-          <h1>{artistsData?.name}</h1>
-          <p>Artist {artistsData?.fan_count} Listeners</p>
-          <div className="play-icon">
-            <button>Play</button>
+      <div className="artist-details">
+        <img src={artistsData?.image} alt="artistImage" />
+        <div className="artist-details-text">
+          <h1 className="artist-details-text-heading">{artistsData?.name}</h1>
+          <p className="artist-fan-count">
+            Artist {artistsData?.fan_count} Listeners
+          </p>
+          <div className="mobile-play-icon" onClick={ids}>
+            Play
           </div>
         </div>
       </div>
+      <div className="top-songs">
+        <h3 className="top-song-heading">
+          {artistsData?.topSongs[0] && "Top Songs"}
+        </h3>
 
-      <h3>Top Songs</h3>
-
-      {artistsData?.topSongs.slice(0, 10)?.map((songs, index) => {
-        return (
-          <>
-            <SongItem songs={songs} id={songs?.id} index={index} artist />
-          </>
-        );
-      })}
-
-      <div className="recent-release">
-        {artistsData?.latest_release && <h3>Latest Release</h3>}
-        {artistsData?.latest_release?.map((latestRelease, index) => {
-          return <BrowserCard newRelease={latestRelease} />;
+        {artistsData?.topSongs.slice(0, 10)?.map((songs, index) => {
+          return (
+            <>
+              <SongItem songs={songs} id={songs?.id} index={index} artist />
+            </>
+          );
         })}
       </div>
+      <div className="release">
+        <div className="recent-release">
+          <h3>{artistsData?.latest_release[0] && "Latest Release"}</h3>
+          {artistsData?.latest_release?.map((latestRelease, index) => {
+            return <BrowserCard newRelease={latestRelease} />;
+          })}
+        </div>
 
-      <div className="recent-release">
-        {artistsData?.featured_artist_playlist && <h3>Featured In</h3>}
-        {artistsData?.featured_artist_playlist?.map((latestRelease, index) => {
-          return <BrowserCard newRelease={latestRelease} />;
-        })}
-      </div>
+        <div className="recent-release">
+          <h3> {artistsData?.featured_artist_playlist[0] && "Featured In"}</h3>
+          {artistsData?.featured_artist_playlist?.map(
+            (latestRelease, index) => {
+              return <BrowserCard newRelease={latestRelease} />;
+            }
+          )}
+        </div>
 
-      <div className="recent-release">
-        {artistsData?.singles && <h3>Singles</h3>}
-        {artistsData?.singles?.map((latestRelease, index) => {
-          return <BrowserCard newRelease={latestRelease} />;
-        })}
+        <div className="recent-release">
+          <h3> {artistsData?.singles[0] && "Singles"}</h3>
+          {artistsData?.singles?.map((latestRelease, index) => {
+            return <BrowserCard newRelease={latestRelease} />;
+          })}
+        </div>
+
+        <div className="recent-release">
+          <h3> {artistsData?.similarArtists[0] && "Related Artists"}</h3>
+          {artistsData?.similarArtists?.map((latestRelease, index) => {
+            return (
+              <BrowserCard
+                newRelease={latestRelease}
+                part
+                relatedArtists={relatedArtists}
+                setRelatedArtists={setRelatedArtists}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
