@@ -21,15 +21,22 @@ const Header = () => {
 
   const history = useHistory();
 
-  const onMobileExpand = () => {
+  const onMobileExpand = (e) => {
     setOnMobile(!onMobile);
+    e.stopPropagation();
   };
 
   return (
     <div>
       <div className="header">
         <div className="logo">
-          <img src={logo} alt="logo" />
+          <img
+            src={logo}
+            alt="logo"
+            onClick={() => {
+              history.push("/");
+            }}
+          />
         </div>
         <div className="navbar">
           <ul>
@@ -55,10 +62,7 @@ const Header = () => {
                 <p> Discover</p>
               </NavLink>
             </li>
-            <li>
-              <BsPerson />
-              <p> Artists</p>
-            </li>
+
             <li>
               <NavLink
                 exact
@@ -94,9 +98,11 @@ const Header = () => {
           <div className="search-icon">
             <FiSearch
               size={"20px"}
-              onClick={() => {
+              onClick={(e) => {
                 history.push("/search");
                 setNav(!nav);
+                setOnMobile(false);
+                e.stopPropagation();
               }}
             />
           </div>

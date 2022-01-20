@@ -11,12 +11,14 @@ const PlayList = ({ match }) => {
   const [recoPlayList, setRecoPlayList] = useState();
   const { currentPlayList, setCurrentPlayList } = useContext(WaveContext);
   const [loader, setLoader] = useState(true);
+  const { nav, setNav } = useContext(WaveContext);
   useEffect(() => {
     const getPlayListsData = async () => {
       setData(await getPlayListData(match?.params?.id));
     };
 
     getPlayListsData();
+    setNav(true);
   }, [recoPlayList]);
 
   useEffect(() => {
@@ -74,7 +76,13 @@ const PlayList = ({ match }) => {
         })}
       </div>
 
-      <div className="recent-playlist">
+      <div
+        className="recent-playlist"
+        onClick={() => {
+          setData();
+          setLoader(true);
+        }}
+      >
         <Cards cardData={recoPlayList} />
       </div>
     </div>

@@ -42,6 +42,7 @@ const Cards = ({ cardData, title, large, square }) => {
       albumData(items?.more_info?.album_id, index);
     }
   };
+  // console.log(cardData);
   return (
     <div>
       <div className="container">

@@ -1,8 +1,7 @@
 .favourite {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  overflow: hidden;
+  margin-top: 5vh;
 
   margin-right: 100px;
   margin-left: 250px;
@@ -21,6 +20,7 @@
   width: 50px;
   object-fit: cover;
   margin-left: 1rem;
+  border-radius: 10px;
   mask-image: paint(squircle);
   -webkit-mask-image: paint(squircle);
   background: paint(squircle);

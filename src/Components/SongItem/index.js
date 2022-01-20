@@ -55,7 +55,7 @@ const SongItem = ({ songs, id, index, fav, artist }) => {
           <>
             <p className="title">{songs?.song}</p>
             <p className="mobile-title">{truncate(songs?.song, 20)}</p>
-            <p className="desc">{truncate(songs?.singers, 40)}</p>
+            <p className="desc">{truncate(songs?.primary_artists, 40)}</p>
           </>
         ) : (
           <>

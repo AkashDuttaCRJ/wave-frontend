@@ -13,6 +13,7 @@ const Albums = ({ match }) => {
   const [recentAlbums, setRecentAlbums] = useState();
   const { currentPlayList, setCurrentPlayList } = useContext(WaveContext);
   const [loader, setLoader] = useState(true);
+  const { nav, setNav } = useContext(WaveContext);
   useEffect(() => {
     const getAlbumData = async () => {
       setData(await getAlbumsData(match?.params?.id));
@@ -25,6 +26,7 @@ const Albums = ({ match }) => {
       setRecentAlbums(await getAlbumDetailsByYear(data?.year));
     };
     getAlbumData();
+    setNav(true);
   }, [data]);
 
   const handleClick = () => {
@@ -78,7 +80,13 @@ const Albums = ({ match }) => {
         })}
       </div>
       <p className="recent-album-title">{recentAlbums && "Recent Albums"}</p>
-      <div className="recent-albums">
+      <div
+        className="recent-albums"
+        onClick={() => {
+          setData();
+          setLoader(true);
+        }}
+      >
         <Cards cardData={recentAlbums} />
       </div>
     </div>

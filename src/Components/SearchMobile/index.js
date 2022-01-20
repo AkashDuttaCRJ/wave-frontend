@@ -16,10 +16,11 @@ const SearchMobile = () => {
   const [value, setValue] = useState("");
   const [item, setItem] = useState();
   const [searchData, setSearchData] = useState();
-  const inputRef = useRef(null);
+  let inputRef = useRef(null);
   const history = useHistory();
 
   const { nav, setNav } = useContext(WaveContext);
+
   useEffect(() => {
     const search = async () => {
       setSearchData(await getSearchData(value));
@@ -123,6 +124,7 @@ export default SearchMobile;
 const MobileSearchCard = ({ title, data, isSearch, setIsSearch }) => {
   const history = useHistory();
   const { nav, setNav } = useContext(WaveContext);
+  const fallback = `https://via.placeholder.com/150x150`;
 
   const handleSongItem = (songId) => {
     getSongDetails(songId).then((data) => {
@@ -158,7 +160,11 @@ const MobileSearchCard = ({ title, data, isSearch, setIsSearch }) => {
                 setNav(!nav);
               }}
             >
-              <img src={items?.image} alt="img" />
+              <img
+                src={items?.image}
+                alt="img"
+                onError={(e) => (e.currentTarget.src = fallback)}
+              />
 
               <div className="mobile-search-card-name">
                 {truncate(items?.title, 25)}

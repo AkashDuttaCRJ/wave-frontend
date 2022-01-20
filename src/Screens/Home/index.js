@@ -3,20 +3,38 @@ import { getHomeData } from "../../API";
 import Cards from "../../Components/Cards";
 import SyncLoader from "react-spinners/SyncLoader";
 import { motion } from "framer-motion";
-
+import axios from "axios";
 import "./Home.css";
 import { WaveContext } from "../../WaveContext";
 
 const Home = () => {
   const [homeData, setHomeData] = useState();
   const [loader, setLoader] = useState(true);
+  const { nav, setNav } = useContext(WaveContext);
   useEffect(() => {
     const fetchData = async () => {
       setHomeData(await getHomeData());
       setLoader(false);
+      setNav(true);
     };
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const homedata = () => {
+  //     axios
+  //       .get("https://api-jiosaavn.herokuapp.com/")
+  //       .then((res) => {
+  //         setHomeData(res?.data);
+  //         setLoader(false);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   };
+  //   homedata();
+  // }, []);
+  // console.log(homeData);
 
   const { currentPlayList } = useContext(WaveContext);
 
@@ -56,32 +74,32 @@ const Home = () => {
       />
       <Cards
         cardData={homeData?.promo_vx_data_32}
-        title={homeData?.promo_vx_data_32?.title}
+        title={homeData?.modules?.promo_vx_data_32?.title}
         square
       />
 
       <Cards
         cardData={homeData?.promo_vx_data_56}
-        title={homeData?.promo_vx_data_56?.title}
+        title={homeData?.modules?.promo_vx_data_56?.title}
       />
 
       <Cards
         cardData={homeData?.promo_vx_data_68}
-        title={homeData?.promo_vx_data_68?.title}
+        title={homeData?.modules?.promo_vx_data_68?.title}
       />
 
       <Cards
         cardData={homeData?.promo_vx_data_76}
-        title={homeData?.promo_vx_data_76?.title}
+        title={homeData?.modules?.promo_vx_data_76?.title}
       />
 
       <Cards
         cardData={homeData?.promo_vx_data_81}
-        title={homeData?.promo_vx_data_81?.title}
+        title={homeData?.modules?.promo_vx_data_81?.title}
       />
       <Cards
         cardData={homeData?.promo_vx_data_96}
-        title={homeData?.promo_vx_data_96?.title}
+        title={homeData?.modules?.promo_vx_data_96?.title}
       />
     </motion.div>
   );

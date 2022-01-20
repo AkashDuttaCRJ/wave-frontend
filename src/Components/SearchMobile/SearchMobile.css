@@ -22,7 +22,6 @@
   color: #9a999c;
   z-index: 60;
   box-shadow: 0 0 0 20px #120e16;
-  margin-top: 0.5rem;
 }
 
 .mobile-input input {
@@ -78,14 +77,16 @@
   width: 100%;
 }
 .mobileimgText img {
-  height: 5rem;
-  width: 5rem;
+  height: 3rem;
+  width: 3rem;
   object-fit: cover;
+  border-radius: 7px;
   mask-image: paint(squircle);
   -webkit-mask-image: paint(squircle);
   background: paint(squircle);
   --squircle-radius: 10px;
   --squircle-smooth: 0.8;
+  --squircle-color: grey;
   margin-bottom: 0.5rem;
 }
 .mobile-search-card-name {

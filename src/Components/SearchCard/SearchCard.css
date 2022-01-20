@@ -3,20 +3,16 @@
   flex-direction: column;
   margin-top: -1.5rem;
 }
-
 .search-title {
   font-size: 0.8rem;
   padding-block: 0.5rem;
 }
 .headerCard {
   display: flex;
-
   flex-wrap: wrap;
   height: 24vh;
   width: 15vw;
-
   overflow-x: hidden;
-
   overflow-y: scroll;
   padding-bottom: 3rem;
   gap: 1rem;
@@ -40,6 +36,7 @@
   background: paint(squircle);
   --squircle-radius: 10px;
   --squircle-smooth: 0.8;
+  --squircle-color: grey;
   margin-bottom: 0.5rem;
 }
 .cardText {
@@ -49,4 +46,9 @@
 .cardText .search-card-name {
   color: white;
   margin: 0;
+}
+.cover {
+  height: 3rem;
+  width: 3rem;
+  background-color: gray;
 }

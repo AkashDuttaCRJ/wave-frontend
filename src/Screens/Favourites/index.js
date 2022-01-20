@@ -10,6 +10,7 @@ const Favourites = () => {
   const { favourites } = useContext(WaveContext);
   const [songData, setSongData] = useState([]);
   const [loader, setLoader] = useState(true);
+  const { nav, setNav } = useContext(WaveContext);
 
   useEffect(() => {
     const data = async () => {
@@ -22,6 +23,9 @@ const Favourites = () => {
     setSongData([]);
     favourites && data();
   }, [favourites]);
+  useEffect(() => {
+    setNav(true);
+  }, []);
 
   return loader ? (
     <div className="loader">

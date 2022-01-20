@@ -26,6 +26,7 @@ const Browse = () => {
 
   const history = useHistory();
   const [loader, setLoader] = useState(true);
+  const { nav, setNav } = useContext(WaveContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +35,10 @@ const Browse = () => {
     };
     fetchData();
   }, [language]);
+
+  useEffect(() => {
+    setNav(true);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

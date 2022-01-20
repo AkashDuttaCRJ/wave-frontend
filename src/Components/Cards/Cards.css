@@ -39,8 +39,10 @@
   background: paint(squircle);
   --squircle-radius: 15px;
   --squircle-smooth: 0.8;
+  --squircle-color: grey;
   margin: 1rem 0.5rem;
   position: relative;
+  cursor: pointer;
 }
 .card::after {
   content: "";

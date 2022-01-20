@@ -12,7 +12,7 @@ const Search = () => {
   const [value, setValue] = useState("");
   const [item, setItem] = useState();
   const [searchData, setSearchData] = useState();
-  const inputRef = useRef(null);
+  let inputRef = useRef(null);
 
   useEffect(() => {
     const search = async () => {
@@ -30,7 +30,7 @@ const Search = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, [isSearch]);
+  }, [isSearch == true]);
   const isExpand = () => {
     setIsSearch(!isSearch);
   };
@@ -74,7 +74,7 @@ const Search = () => {
           <div className="input">
             <FiSearch />
             <input
-              type="search"
+              type="text"
               value={value}
               onChange={inputEvent}
               ref={inputRef}
@@ -134,19 +134,3 @@ const Search = () => {
 };
 
 export default Search;
-
-// onClick={
-//   items?.type === "playlist"
-//     ? history.push(`/playlist/${items?.id}`)
-//     : history.push(`/album/${items?.id}`)
-// }
-
-// onClick={playList
-//   ? (newRelease?.listid &&
-//       history.push(`/playlist/${newRelease?.listid}`)) ||
-//     (newRelease?.id && history.push(`/playlist/${newRelease?.id}`))
-//   : (newRelease?.albumid &&
-//       history.push(`/album/${newRelease?.albumid}`)) ||
-//     (newRelease?.id && history.push(`/album/${newRelease?.id}`)) ||
-//     (newRelease?.more_info?.album_id &&
-//       history.push(`/album/${newRelease?.more_info?.album_id}`))}

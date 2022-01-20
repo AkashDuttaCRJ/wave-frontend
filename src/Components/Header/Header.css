@@ -61,11 +61,17 @@ button {
   align-items: center;
   justify-content: flex-start;
 }
+.nav-link:hover {
+  color: #00aa5b;
+}
 .navbar ul li p {
   margin-left: 1rem;
 }
 .active {
   font-weight: bold;
+  color: #00d673;
+}
+.active:hover {
   color: #00d673;
 }
 .mobile {

@@ -10,8 +10,6 @@ const NowPlayingPlaylist = ({ tracks, trackIndex, setTrackIndex }) => {
   const itemRef = useRef(new Array());
   const items = useRef();
 
-  const [isAdd, setIsAdd] = useState(false);
-
   const { favourites, setFavourites } = useContext(WaveContext);
 
   useEffect(() => {
@@ -21,13 +19,6 @@ const NowPlayingPlaylist = ({ tracks, trackIndex, setTrackIndex }) => {
       inline: "end",
     });
   }, [trackIndex]);
-
-  // useEffect(() => {
-  //   const checkFavourite = () => {
-  //     setIsAdd(favourites?.includes(tracks?.id));
-  //   };
-  //   checkFavourite();
-  // }, [favourites, tracks?.id]);
 
   const truncate = (string, n) => {
     return string?.length > n ? string.substr(0, n - 1) + "..." : string;
@@ -44,7 +35,7 @@ const NowPlayingPlaylist = ({ tracks, trackIndex, setTrackIndex }) => {
     setFavourites(favourites.filter((item) => item != id));
   };
   const handleClick = (id) => {
-    favourites.includes(id)
+    favourites?.includes(id)
       ? deleteitem(id)
       : setFavourites((pv) => (favourites?.length === 0 ? [id] : [...pv, id]));
   };
@@ -88,7 +79,7 @@ const NowPlayingPlaylist = ({ tracks, trackIndex, setTrackIndex }) => {
                   e.stopPropagation();
                 }}
               >
-                {favourites.includes(track?.id) ? (
+                {favourites?.includes(track?.id) ? (
                   <AiFillHeart size={25} />
                 ) : (
                   <AiOutlineHeart size={25} />

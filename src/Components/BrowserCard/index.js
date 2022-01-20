@@ -7,8 +7,9 @@ const BrowserCard = ({
   newRelease,
   playList,
   part,
-
   album,
+  artistAlbum,
+  artistPlayList,
 }) => {
   const history = useHistory();
   const prts = part && newRelease?.perma_url?.split("/");
@@ -22,11 +23,15 @@ const BrowserCard = ({
           (playList &&
             newRelease?.listid &&
             history.push(`/playlist/${newRelease?.listid}`)) ||
-            (newRelease?.id && history.push(`/playlist/${newRelease?.id}`)) ||
+            (artistPlayList &&
+              newRelease?.id &&
+              history.push(`/playlist/${newRelease?.id}`)) ||
             (album &&
               newRelease?.albumid &&
               history.push(`/album/${newRelease?.albumid}`)) ||
-            (newRelease?.id && history.push(`/album/${newRelease?.id}`)) ||
+            (artistAlbum &&
+              newRelease?.id &&
+              history.push(`/album/${newRelease?.id}`)) ||
             (newRelease?.more_info?.album_id &&
               history.push(`/album/${newRelease?.more_info?.album_id}`)) ||
             (part && history.push(`/artist/${prt}`));
