@@ -8,12 +8,12 @@ const TopPlayer = ({ tracks, current}) => {
             <div className="top-player">
                 <div className="poster-image">
                     <img
-                    src={data.image}
-                    alt={data.song}
+                    src={data?.image}
+                    alt={data?.song}
                     />
                 </div>
-                <h1>{data.song}</h1>
-                <p>{data.primary_artists}</p>
+                <h1>{data?.song}</h1>
+                <p>{data?.primary_artists}</p>
             </div>
         </div>
     )

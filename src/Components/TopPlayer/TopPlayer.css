@@ -40,3 +40,10 @@
 .top-player p {
     color: rgba(255, 255, 255, 0.7);
 }
+
+@media only screen and (max-width: 600px) {
+    .poster-image {
+        height: 300px;
+        width: 300px;
+    }
+}

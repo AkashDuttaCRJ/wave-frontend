@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./NowPlayingPlaylist.css";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { WaveContext } from "../../WaveContext";
+import { motion } from "framer-motion";
 
-const NowPlayingPlaylist = ({ tracks, trackIndex, setTrackIndex }) => {
+const NowPlayingPlaylist = ({ tracks, trackIndex, setTrackIndex, fullView }) => {
   const [hover, setHover] = useState(false);
   const [hoverIndex, setHoverIndex] = useState();
 
@@ -40,9 +41,16 @@ const NowPlayingPlaylist = ({ tracks, trackIndex, setTrackIndex }) => {
       : setFavourites((pv) => (favourites?.length === 0 ? [id] : [...pv, id]));
   };
   return (
-    <>
-      <div className="now-playing" ref={items}>
-        <div className="queue-header">Header</div>
+    <motion.div className="now-playing"
+      style={{x: 440, y: -250}}
+      whileHover={fullView ? {x: -155, y: -250} : {x: -20, y: -250}}
+      animate={fullView ? {x: -155, y: -250} : {x: 440, y: -250}}
+      transition={fullView ? { duration: 0.5, delay: 0.2 } : { duration: 0.5, delay: 0 }}
+    >
+      <div className="queue-header">
+        <div>Queue</div>
+      </div>
+      <div className="np-items" ref={items}>
         {tracks.map((track, index) => {
           return (
             <div
@@ -93,7 +101,7 @@ const NowPlayingPlaylist = ({ tracks, trackIndex, setTrackIndex }) => {
           );
         })}
       </div>
-    </>
+    </motion.div>
   );
 };
 

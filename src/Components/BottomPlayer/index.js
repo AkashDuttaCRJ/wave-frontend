@@ -6,10 +6,11 @@ import {
   BsPauseFill,
 } from "react-icons/bs";
 import { IoMdVolumeHigh, IoMdVolumeLow, IoMdVolumeOff } from "react-icons/io";
+import { BiExpand, BiCollapse } from "react-icons/bi";
 import "./BottomPlayer.css";
 import { useKeyPress } from "../../helper";
 
-const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
+const BottomPlayer = ({ tracks, trackIndex, setTrackIndex, fullView, setFullView, isMobile }) => {
   // State
   const [trackProgress, setTrackProgress] = useState(0);
   const [volumeProgress, setVolumeProgress] = useState(1);
@@ -72,8 +73,6 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
   }, []);
 
   useEffect(() => {
-    audioRef.current.pause();
-
     audioRef.current = new Audio(tracks[trackIndex]?.media_url);
     setTrackProgress(audioRef.current.currentTime);
     audioRef.current.volume = volumeProgress;
@@ -82,9 +81,6 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
       audioRef.current.play();
       setIsPlaying(true);
       startTimer();
-    } else {
-      // Set the isReady ref as true for the next pass
-      isReady.current = true;
     }
   }, [tracks.length === 0]);
 
@@ -174,7 +170,7 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
 
   return (
     <div className="bottom-music-player">
-      <MiniView data={tracks[trackIndex]} />
+      <MiniView data={tracks[trackIndex]} fullView={fullView} setFullView={setFullView} isMobile={isMobile} />
       <AudioControls
         isPlaying={isPlaying}
         onPrevClick={toPrevTrack}
@@ -246,6 +242,15 @@ const BottomPlayer = ({ tracks, trackIndex, setTrackIndex }) => {
           </div>
         )}
       </div>
+      <button
+          type="button"
+          className="expand"
+          aria-label="expand"
+          onClick={() => fullView ? setFullView(false) : setFullView(true)}
+          disabled={tracks.length === 0 && true}
+        >
+          {fullView ? <BiCollapse /> : <BiExpand />}
+        </button>
     </div>
   );
 };
@@ -315,15 +320,15 @@ const AudioControls = ({
   );
 };
 
-const MiniView = ({ data }) => {
+const MiniView = ({ data, fullView, setFullView, isMobile }) => {
   const truncate = (string, n) => {
     return string?.length > n ? string.substr(0, n - 1) + "..." : string;
   };
 
   return (
-    <div className="mini-view">
+    <div className="mini-view"  onClick={() => isMobile && fullView ? setFullView(false) : setFullView(true)}>
       <div className="content-image">
-        <img src={data?.image} alt={data?.song} />
+        {data?.image ? <img src={data?.image} alt={data?.song} /> : <div className="grey-div"></div>}
       </div>
       <div className="content">
         <div className="song-name">{truncate(data?.song, 55)}</div>
