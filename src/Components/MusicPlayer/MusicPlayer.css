@@ -24,11 +24,9 @@
   border-image-slice: 1;
 }
 
-/* .right-section {
-    width: 50%;
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-} */
+@media only screen and (max-width: 600px) {
+  .left-section {
+    width: 100%;
+    border-right-width: 0px;
+  }
+}

@@ -2,7 +2,6 @@
   min-width: 30%;
   min-height: 60vh;
   max-height: 60vh;
-  overflow-y: scroll;
   background: url("https://images.pexels.com/photos/6985265/pexels-photo-6985265.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   background-size: cover;
   background-repeat: no-repeat;
@@ -10,13 +9,18 @@
   padding: 1.5rem 1rem;
   border-radius: 15px;
   position: fixed;
-  top: 50%;
+  top: 48%;
   right: 0;
-  transform: translateX(0%) translateY(-50%);
   z-index: 210;
 }
 
-.now-playing::-webkit-scrollbar {
+.np-items {
+  min-height: 50vh;
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.np-items::-webkit-scrollbar {
   width: 0;
 }
 
@@ -86,10 +90,20 @@
 }
 
 .queue-header {
-  position: sticky;
-  top: 0;
-  left: 0;
+  background: transparent;
   text-align: center;
+  font-weight: bold;
   height: 5vh;
   width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .now-playing {
+    min-width: 30%;
+    min-height: 60vh;
+    max-height: 60vh;
+    padding: 1.5rem 1rem;
+    position: static;
+    z-index: 210;
+  }
 }
