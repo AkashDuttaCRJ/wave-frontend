@@ -5,12 +5,11 @@ import { getSongDetails } from "../../API";
 import { truncate } from "../../helper";
 import { WaveContext } from "../../WaveContext";
 import "./SearchCard.css";
+import blank from "../../Assets/blank.svg";
 
 const SearchCard = ({ title, data, isSearch, setIsSearch }) => {
   const history = useHistory();
   const { currentPlayList, setCurrentPlayList } = useContext(WaveContext);
-  const [error, setError] = useState(false);
-  const fallback = `https://via.placeholder.com/150x150`;
 
   const handleSongItem = (songId) => {
     getSongDetails(songId).then((data) => {
@@ -53,7 +52,7 @@ const SearchCard = ({ title, data, isSearch, setIsSearch }) => {
               <img
                 src={items?.image}
                 alt="img"
-                onError={(e) => (e.currentTarget.src = fallback)}
+                onError={(e) => (e.currentTarget.src = blank)}
               />
 
               <div className="cardText">

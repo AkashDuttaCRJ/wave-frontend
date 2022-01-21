@@ -9,6 +9,7 @@ import { useHistory } from "react-router";
 import { WaveContext } from "../../WaveContext";
 import { motion } from "framer-motion";
 import SyncLoader from "react-spinners/SyncLoader";
+import { useMediaQuery } from "react-responsive";
 
 const Browse = () => {
   const [newReleases, setNewReleaseds] = useState([]);
@@ -27,6 +28,8 @@ const Browse = () => {
   const history = useHistory();
   const [loader, setLoader] = useState(true);
   const { nav, setNav } = useContext(WaveContext);
+
+  const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,9 +92,9 @@ const Browse = () => {
   ) : (
     <motion.div
       animate={
-        currentPlayList.length === 0
-          ? { marginRight: "0" }
-          : { marginRight: "100px" }
+        (currentPlayList.length === 0 && { marginRight: "0" },
+        currentPlayList.length >= 1 &&
+          isMobile == false && { marginRight: "100px" })
       }
       className="browse"
     >

@@ -6,11 +6,13 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import "./Home.css";
 import { WaveContext } from "../../WaveContext";
+import { useMediaQuery } from "react-responsive";
 
 const Home = () => {
   const [homeData, setHomeData] = useState();
   const [loader, setLoader] = useState(true);
   const { nav, setNav } = useContext(WaveContext);
+  const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
   useEffect(() => {
     const fetchData = async () => {
       setHomeData(await getHomeData());
@@ -20,24 +22,7 @@ const Home = () => {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   const homedata = () => {
-  //     axios
-  //       .get("https://api-jiosaavn.herokuapp.com/")
-  //       .then((res) => {
-  //         setHomeData(res?.data);
-  //         setLoader(false);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   };
-  //   homedata();
-  // }, []);
-  // console.log(homeData);
-
   const { currentPlayList } = useContext(WaveContext);
-
   return loader ? (
     <div className="loader">
       <SyncLoader
@@ -50,9 +35,9 @@ const Home = () => {
   ) : (
     <motion.div
       animate={
-        currentPlayList.length === 0
-          ? { marginRight: "0" }
-          : { marginRight: "100px" }
+        (currentPlayList.length === 0 && { marginRight: "0" },
+        currentPlayList.length >= 1 &&
+          isMobile == false && { marginRight: "100px" })
       }
       className="home"
     >

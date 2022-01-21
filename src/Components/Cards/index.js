@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import "./Cards.css";
 import { BsPlay } from "react-icons/bs";
-
 import { truncate } from "../../helper";
 import { useHistory } from "react-router";
 import { WaveContext } from "../../WaveContext";
@@ -12,7 +11,6 @@ const Cards = ({ cardData, title, large, square }) => {
   const { currentPlayList, setCurrentPlayList } = useContext(WaveContext);
 
   const queue = (data, index) => {
-    console.log(data?.songs[0]);
     !currentPlayList.includes(data?.songs[0]?.song) &&
       setCurrentPlayList((pv) =>
         currentPlayList?.length === 0
@@ -47,6 +45,7 @@ const Cards = ({ cardData, title, large, square }) => {
     <div>
       <div className="container">
         <p className="title">{title}</p>
+
         <div className="cards">
           {cardData?.map((items, index) => {
             return (
